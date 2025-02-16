@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
-export function HookCard({ hook, index }) {
+export function HookCard({ hook, index, isSelected, onSelect }) {
   if (!hook || !hook.text) {
     return null;
   }
@@ -9,7 +10,13 @@ export function HookCard({ hook, index }) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.2 }}
-      className="p-4 rounded-lg border border-black/10 dark:border-white/10 space-y-4"
+      className={cn(
+        "p-4 rounded-lg border space-y-4 cursor-pointer transition-colors",
+        isSelected
+          ? "border-blue-500 bg-blue-50"
+          : "border-black/10 dark:border-white/10 hover:bg-gray-50"
+      )}
+      onClick={onSelect}
     >
       <p className="text-lg font-medium">{hook.text}</p>
 
