@@ -47,7 +47,7 @@ export default function AuthPage() {
         toast({
           variant: "destructive",
           title: "Access Denied",
-          description: "Email not found. Please check your email or sign up.",
+          description: "Email not found. wait for the next beta test.",
         });
       }
     } catch (error) {
