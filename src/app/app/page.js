@@ -1,19 +1,23 @@
 "use client";
 
 import AIInput_17 from "@/components/kokonutui/ai-input-17";
-import { useAIGenerationContext } from "@/context/AIGenerationContext";
 import { useEffect, useState } from "react";
 import { AIResponse } from "@/components/kokonutui/ai-response";
 import { LinkedInPost } from "@/components/linkedin-post";
 import { motion, AnimatePresence } from "framer-motion";
+import { useAIGeneration } from "@/hooks/use-ai-generation";
+import { useAIGenerationContext } from "@/context/AIGenerationContext";
 
 export default function AppHome() {
   const { generateContent, response, isLoading } = useAIGenerationContext();
+
   const [selectedHook, setSelectedHook] = useState(null);
 
   useEffect(() => {
     const processPrompt = async () => {
       const pendingPrompt = localStorage.getItem("pendingPrompt");
+      console.log("pendingPrompt:", pendingPrompt);
+
       if (pendingPrompt) {
         await generateContent(pendingPrompt);
         localStorage.removeItem("pendingPrompt");

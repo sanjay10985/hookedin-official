@@ -4,9 +4,10 @@ import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { useAutoResizeTextarea } from "@/hooks/use-auto-resize-textarea";
-import { useAIGenerationContext } from "@/context/AIGenerationContext";
 import { ArrowUpCircle, Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useAIGeneration } from "@/hooks/use-ai-generation";
+import { useAIGenerationContext } from "@/context/AIGenerationContext";
 
 export default function AIInput_17() {
   const [value, setValue] = useState("");
@@ -16,6 +17,7 @@ export default function AIInput_17() {
     maxHeight: 250,
   });
 
+  // const { generateContent, isLoading } = useAIGeneration();
   const { generateContent, isLoading } = useAIGenerationContext();
 
   const handleSubmit = async () => {

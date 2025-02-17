@@ -1,9 +1,12 @@
 "use client";
 
 import { useAuth } from "@/hooks/use-auth";
+import { useActionState } from "react";
 
 export default function AppLayout({ children }) {
-  const { user, isLoading } = useAuth();
+  // const { user, isLoading } = useAuth();
+
+  const { isLoading } = useActionState();
 
   if (isLoading) {
     return (
@@ -13,14 +16,5 @@ export default function AppLayout({ children }) {
     );
   }
 
-  if (!user) {
-    return null; // useAuth will handle redirect
-  }
-
-  return (
-    <div>
-      {/* You can now access user.name, user.email etc */}
-      {children}
-    </div>
-  );
+  return <div>{children}</div>;
 }

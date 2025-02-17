@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 export function useAIGeneration() {
   const [isLoading, setIsLoading] = useState(false);
   const [response, setResponse] = useState(null);
   const [error, setError] = useState(null);
 
-  const generateContent = async (prompt) => {
+  const generateContent = useCallback(async (prompt) => {
     try {
       setIsLoading(true);
       setError(null);
@@ -32,7 +32,7 @@ export function useAIGeneration() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
 
   return { generateContent, isLoading, response, setResponse, error };
 }

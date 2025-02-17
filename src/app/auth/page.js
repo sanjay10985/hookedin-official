@@ -37,6 +37,8 @@ export default function AuthPage() {
 
       const data = await response.json();
 
+      console.log(data);
+
       if (data.success && data.exists) {
         toast({
           title: "Success!",
