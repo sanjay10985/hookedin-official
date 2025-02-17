@@ -52,15 +52,6 @@ export default function LandingPage() {
   return (
     <div className="flex min-h-screen flex-col">
       {/* Header */}
-      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container  flex h-16 items-center justify-between">
-          <div className="flex items-center gap-2">
-            <MessageSquare className="h-6 w-6 text-blue-600" />
-            <span className="text-xl font-bold">HookedIn.live</span>
-          </div>
-          <Button>Get Early Access</Button>
-        </div>
-      </header>
 
       <main className="flex-1">
         {/* Hero Section */}

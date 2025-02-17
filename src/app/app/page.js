@@ -23,47 +23,85 @@ export default function AppHome() {
     processPrompt();
   }, [generateContent]);
 
+  const hasContent = response || isLoading;
+
   return (
     <div className="flex h-screen">
-      <div className="w-1/2 flex flex-col">
-        <div className="flex-grow overflow-y-auto p-4">
-          <AIResponse
-            response={response}
-            isLoading={isLoading}
-            onSelectHook={setSelectedHook}
-          />
-        </div>
-        <div className="p-4">
-          <AIInput_17 />
-        </div>
-      </div>
-      <div className="w-1/2 bg-gray-100 p-4 flex items-center justify-center">
-        <AnimatePresence mode="wait">
-          {selectedHook && (
+      <AnimatePresence>
+        {hasContent ? (
+          <>
             <motion.div
-              key={selectedHook.text}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              className="w-1/2 flex flex-col"
             >
-              <LinkedInPost
-                author={{
-                  name: "John Doe",
-                  title: "Software Engineer at Tech Co.",
-                }}
-                hook={selectedHook.text}
-                metrics={{
-                  likes: 42,
-                  comments: 7,
-                  reposts: 3,
-                }}
-                timeAgo="2h"
-              />
+              <div className="flex-grow overflow-y-auto p-8 pt-16">
+                <AIResponse
+                  response={response}
+                  isLoading={isLoading}
+                  onSelectHook={setSelectedHook}
+                />
+              </div>
+
+              <div className="p-4">
+                <AIInput_17 />
+              </div>
             </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 20 }}
+              className="w-1/2 bg-gray-100 p-4 flex items-center justify-center"
+            >
+              <AnimatePresence mode="wait">
+                {selectedHook && (
+                  <motion.div
+                    key={selectedHook.text}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <LinkedInPost
+                      author={{
+                        name: "John Doe",
+                        title: "Software Engineer at Tech Co.",
+                      }}
+                      hook={selectedHook.text}
+                      metrics={{
+                        likes: 42,
+                        comments: 7,
+                        reposts: 3,
+                      }}
+                      timeAgo="2h"
+                    />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          </>
+        ) : (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            className="w-full flex items-center flex-col justify-center gap-8"
+          >
+            <div className="container mx-auto">
+              <h1 className="text-4xl text-center font-medium tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
+                Craft LinkedIn hooks that{" "}
+                <span className="inline-block bg-gradient-to-r from-[#C47D19] to-[#E5A44D] bg-clip-text text-transparent">
+                  capture attention
+                </span>
+              </h1>
+            </div>
+            <div className="w-full max-w-2xl p-4">
+              <AIInput_17 />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

@@ -2,7 +2,7 @@
 
 import { HookCard } from "./hook-card";
 import { motion, AnimatePresence } from "framer-motion";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 
 export function AIResponse({ response, isLoading, onSelectHook }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -19,7 +19,7 @@ export function AIResponse({ response, isLoading, onSelectHook }) {
     }
   }, [response]);
 
-  useMemo(() => {
+  useEffect(() => {
     if (parsedHooks.length > 0) {
       onSelectHook(parsedHooks[0]);
     }
@@ -31,16 +31,28 @@ export function AIResponse({ response, isLoading, onSelectHook }) {
   };
 
   return (
-    <div className="w-full space-y-4 overflow-y-auto p-8 ">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="w-full space-y-4 overflow-y-auto p-4"
+    >
       <AnimatePresence>
         {parsedHooks.map((hook, index) => (
-          <HookCard
+          <motion.div
             key={index}
-            hook={hook}
-            index={index}
-            isSelected={index === selectedIndex}
-            onSelect={() => handleSelectHook(hook, index)}
-          />
+            initial={{ opacity: 0, y: 5 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -5 }}
+            transition={{ delay: index * 0.1 }}
+          >
+            <HookCard
+              hook={hook}
+              index={index}
+              isSelected={index === selectedIndex}
+              onSelect={() => handleSelectHook(hook, index)}
+            />
+          </motion.div>
         ))}
         {isLoading && (
           <motion.div
@@ -53,6 +65,6 @@ export function AIResponse({ response, isLoading, onSelectHook }) {
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </motion.div>
   );
 }

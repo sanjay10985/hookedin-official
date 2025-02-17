@@ -13,7 +13,7 @@ export default function AIInput_17() {
 
   const { textareaRef, adjustHeight } = useAutoResizeTextarea({
     minHeight: 80,
-    maxHeight: 150,
+    maxHeight: 250,
   });
 
   const { generateContent, isLoading } = useAIGenerationContext();
@@ -38,8 +38,13 @@ export default function AIInput_17() {
   };
 
   return (
-    <div className="relative w-full">
-      <div className="relative flex justify-between border border-black/10 dark:border-white/10 rounded-xl">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 20 }}
+      className="relative w-full"
+    >
+      <div className="relative flex justify-between border border-black/10 dark:border-white/10 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200">
         <div className="overflow-y-auto w-full">
           <Textarea
             ref={textareaRef}
@@ -49,7 +54,7 @@ export default function AIInput_17() {
               adjustHeight();
             }}
             onKeyDown={handleKeyDown}
-            placeholder="Ask me anything..."
+            placeholder="Ask me for LinkedIn post ideas..."
             className={cn(
               "w-full px-4 py-3",
               "resize-none",
@@ -65,7 +70,7 @@ export default function AIInput_17() {
           />
         </div>
 
-        <div className="h-14">
+        <div className="h-14 flex items-center pr-2">
           <AnimatePresence>
             {value.trim() && (
               <motion.button
@@ -77,8 +82,9 @@ export default function AIInput_17() {
                 disabled={isLoading}
                 type="button"
                 className={cn(
-                  "p-2 transition-colors",
+                  "p-2 transition-colors rounded-full",
                   isLoading ? "cursor-not-allowed opacity-50" : "",
+                  "p-2 transition-colors",
                   value.trim()
                     ? "text-blue-500 hover:text-blue-600"
                     : "text-black/30 dark:text-white/30"
@@ -94,6 +100,6 @@ export default function AIInput_17() {
           </AnimatePresence>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
