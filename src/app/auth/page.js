@@ -44,7 +44,7 @@ export default function AuthPage() {
         });
         // Add a small delay and use router.replace for more reliable navigation
 
-        router.push("/app");
+        router.replace("/app");
       } else {
         toast({
           variant: "destructive",
