@@ -12,8 +12,8 @@ const Header = () => {
           {/* <MessageSquare className="h-5 w-5" /> */}
           <Image
             alt="logo"
-            width={100}
-            height={40}
+            width={130}
+            height={50}
             className="w-full"
             src="/hooked-logo.png"
           />
