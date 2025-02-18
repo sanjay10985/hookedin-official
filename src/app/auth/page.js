@@ -40,7 +40,7 @@ export default function AuthPage() {
       if (data.success && data.exists) {
         // Add a small delay and use router.replace for more reliable navigation
 
-        router.push("/app");
+        window.location.href = "/app";
       } else {
         toast({
           variant: "destructive",
