@@ -1,3 +1,5 @@
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import { SYSTEM_INSTRUCTION } from "@/lib/constant";
 import { useState, useCallback } from "react";
 
 export function useAIGeneration() {
@@ -10,22 +12,31 @@ export function useAIGeneration() {
       setIsLoading(true);
       setError(null);
 
-      const res = await fetch("/api/generate", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ prompt }),
+      const genAI = new GoogleGenerativeAI(
+        process.env.NEXT_PUBLIC_GEMINI_API_KEY
+      );
+
+      const model = genAI.getGenerativeModel({
+        model: "gemini-2.0-flash-lite-preview-02-05",
+        systemInstruction: SYSTEM_INSTRUCTION,
       });
 
-      const data = await res.json();
+      const generationConfig = {
+        temperature: 1.4,
+        topP: 0.8,
+        topK: 64,
+        maxOutputTokens: 8192,
+        responseMimeType: "application/json",
+      };
 
-      if (!res.ok) {
-        throw new Error(data.error || "Failed to generate content");
-      }
+      const chatSession = model.startChat({
+        generationConfig,
+        history: [],
+      });
 
-      setResponse(data.response);
-      return data.response;
+      const result = await chatSession.sendMessage(prompt);
+      const responseText = result.response.text();
+      setResponse(responseText);
     } catch (error) {
       setError(error.message);
       throw error;

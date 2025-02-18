@@ -49,7 +49,7 @@ export async function POST(request) {
         },
       });
 
-      cookies().set(
+      await cookies().set(
         "auth-session",
         JSON.stringify({
           email: body.email,

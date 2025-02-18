@@ -16,7 +16,6 @@ export default function AppHome() {
   useEffect(() => {
     const processPrompt = async () => {
       const pendingPrompt = localStorage.getItem("pendingPrompt");
-      console.log("pendingPrompt:", pendingPrompt);
 
       if (pendingPrompt) {
         await generateContent(pendingPrompt);

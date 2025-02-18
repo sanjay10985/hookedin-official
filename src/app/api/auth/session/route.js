@@ -15,7 +15,7 @@ export async function GET() {
     // Verify against Notion
     const notion = new Client({ auth: process.env.NOTION_SECRET });
     const response = await notion.databases.query({
-      database_id: process.env.NOTION_DB,
+      database_id: `${process.env.NOTION_DB}`,
       filter: {
         property: "Email",
         email: {
