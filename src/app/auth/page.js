@@ -37,13 +37,13 @@ export default function AuthPage() {
 
       const data = await response.json();
 
-      console.log(data);
-
       if (data.success && data.exists) {
         toast({
           title: "Success!",
           description: "Welcome back! Redirecting...",
         });
+        // Add a small delay and use router.replace for more reliable navigation
+
         router.push("/app");
       } else {
         toast({

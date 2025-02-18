@@ -32,6 +32,9 @@ export default function RootLayout({ children }) {
         <Providers>{children} </Providers>
         <Toaster />
         {/* <Analytics /> */}
+        <div className="fixed bottom-2 left-2 text-xs text-gray-500">
+          v{process.env.npm_package_version || "1.0.0"}
+        </div>
       </body>
     </html>
   );
