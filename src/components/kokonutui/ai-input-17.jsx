@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { useAutoResizeTextarea } from "@/hooks/use-auto-resize-textarea";
@@ -19,6 +19,19 @@ export default function AIInput_17() {
 
   // const { generateContent, isLoading } = useAIGeneration();
   const { generateContent, isLoading } = useAIGenerationContext();
+
+  useEffect(() => {
+    const processPrompt = async () => {
+      const pendingPrompt = localStorage.getItem("pendingPrompt");
+
+      if (pendingPrompt) {
+        await generateContent(pendingPrompt);
+        localStorage.removeItem("pendingPrompt");
+      }
+    };
+
+    processPrompt();
+  }, [generateContent]);
 
   const handleSubmit = async () => {
     if (!value.trim()) return;

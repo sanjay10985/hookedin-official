@@ -1,12 +1,13 @@
 "use client";
 
+import { useAIGenerationContext } from "@/context/AIGenerationContext";
 import { useAuth } from "@/hooks/use-auth";
 import { useActionState } from "react";
 
 export default function AppLayout({ children }) {
   // const { user, isLoading } = useAuth();
 
-  const { isLoading } = useActionState();
+  const { isLoading } = useAIGenerationContext();
 
   if (isLoading) {
     return (
